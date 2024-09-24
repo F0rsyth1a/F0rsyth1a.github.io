@@ -57,7 +57,7 @@ params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   description: "Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"
   #author: 
-  defaultTheme: dark # 默认是暗色背景
+  defaultTheme: light # 默认是暗色背景
   ShowShareButtons: false # 关闭分享的按钮
   ShowReadingTime: false # 展示预估的阅读时长
   displayFullLangName: true # 展示全名
