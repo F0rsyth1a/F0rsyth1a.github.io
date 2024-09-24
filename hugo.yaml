@@ -55,7 +55,7 @@ pagination.pagerSize: 10
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  description: "Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"
+  #description: "Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"
   #author: 
   defaultTheme: light # 默认是暗色背景
   ShowShareButtons: false # 关闭分享的按钮
