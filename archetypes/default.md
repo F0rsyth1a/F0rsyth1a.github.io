@@ -5,5 +5,4 @@ draft = false
 tags = []
 categories = 
 author = 
-images = []
 +++
