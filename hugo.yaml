@@ -1,9 +1,9 @@
 # ~~~~~~~~~
 # hugo 本身的配置
 # ~~~~~~~~~
-baseURL: "https://F0syth1a.github.io/" # 主站的 URL
+baseURL: "https://F0rsyth1a.github.io/" # 主站的 URL
 title: Forsythia's Blog # 站点标题
-copyright: "[©2024 F0syth1a](https://F0syth1a.github.io/)" # 网站的版权声明，通常显示在页脚
+copyright: "[©2024 F0rsyth1a](https://F0rsyth1a.github.io/)" # 网站的版权声明，通常显示在页脚
 theme: PaperMod # 主题
 languageCode: zh-cn # 语言
 
@@ -33,16 +33,16 @@ languages:
           weight: 4 # 控制在页面上展示的前后顺序
         - name: archives
           pageRef: archives/
-          weight: 5
+          weight: 6
         - name: categories
           pageRef: categories/
           weight: 10
         - name: tags
           pageRef: tags/
-          weight: 10
+          weight: 11
         - name: search
           pageRef: search/
-          weight: 20
+          weight: 5
         - name: about
           pageRef: about/
           weight: 21
