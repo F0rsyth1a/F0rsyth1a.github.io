@@ -63,7 +63,7 @@ params:
   displayFullLangName: true # 展示全名
   ShowPostNavLinks: true # 展示文章导航链接，就是下一页上一页的那个
   ShowBreadCrumbs: false # 是否展示标题上方的面包屑
-  ShowCodeCopyButtons: true # 是否展示复制代码的按钮
+  ShowCodeCopyButtons: false # 是否展示复制代码的按钮
   ShowRssButtonInSectionTermList: false # RSS 相关
   ShowAllPagesInArchive: true # 在归档页面展示所有的页面
   ShowPageNums: true # 展示页面的页数
