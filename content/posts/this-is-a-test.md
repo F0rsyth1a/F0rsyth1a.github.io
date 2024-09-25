@@ -1,12 +1,13 @@
 +++
 title = 'This Is a Test'
 date = 2024-09-23T16:27:05+08:00
-draft = true
-tags = ["tag1", "tag2"]
+draft = false
+tags = []
 categories = ["测试"]
 +++
 
-さびしさや　一尺消えて　ゆくほたる
+さびしさや　一尺消えて　ゆくほたる  
+![20240925150536](https://raw.githubusercontent.com/F0rsyth1a/imgs/main/images/20240925150536.png)
 # math
 行内数学公式：$a^2 + b^2 = c^2$。
 
