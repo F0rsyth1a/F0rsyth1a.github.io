@@ -63,7 +63,7 @@ params:
   displayFullLangName: true # 展示全名
   ShowPostNavLinks: true # 展示文章导航链接，就是下一页上一页的那个
   ShowBreadCrumbs: false # 是否展示标题上方的面包屑
-  ShowCodeCopyButtons: false # 是否展示复制代码的按钮
+  ShowCodeCopyButtons: true # 是否展示复制代码的按钮
   ShowRssButtonInSectionTermList: false # RSS 相关
   ShowAllPagesInArchive: true # 在归档页面展示所有的页面
   ShowPageNums: true # 展示页面的页数
@@ -133,11 +133,14 @@ markup:
     renderer:
       unsafe: true # 可以 unsafe，有些 html 标签和样式可能需要
   highlight:
+    tabWidth: 4
+    guessSyntax: true
     anchorLineNos: false # 不要给行号设置锚标
     codeFences: true # 代码围栏
     noClasses: false # TODO: 不知道干啥的，暂时没必要了解，不影响展示
-    lineNos: true # 代码行
-    lineNumbersInTable: false # 不要设置成 true，否则如果文章开头是代码的话，摘要会由一大堆数字(即代码行号)开头文章
+    lineNoStart: 1
+    lineNos: true
+    lineNumbersInTable: true # 不要设置成 true，否则如果文章开头是代码的话，摘要会由一大堆数字(即代码行号)开头文章
     # 这里设置 style 没用，得自己加 css
     # style: "github-dark"
     # style: monokai
