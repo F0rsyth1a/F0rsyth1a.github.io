@@ -23,19 +23,19 @@ using namespace std;
 string s;
 void solve()
 {
-	getline(cin, s);
-	set<char> st;
-	for(auto ch : s)
-		if(isalpha(ch)) st.insert(ch);
-	cout << st.size();
+    getline(cin, s);
+    set<char> st;
+    for(auto ch : s)
+        if(isalpha(ch)) st.insert(ch);
+    cout << st.size();
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # B. 墨墨的妙妙卡片
@@ -47,8 +47,8 @@ int main()
 string s;
 void solve()
 {
-	cin >> s;
-	cout << (s[0] == 'a' || s[1] == 'b' || s[2] == 'c' ? "YES" : "NO") << '\n';
+    cin >> s;
+    cout << (s[0] == 'a' || s[1] == 'b' || s[2] == 'c' ? "YES" : "NO") << '\n';
 }
 ```
 # C. 墨墨与春日影
@@ -60,8 +60,8 @@ void solve()
 int a, b, c;
 void solve()
 {
-	cin >> a >> b >> c;
-	cout << (a + b * 2 + c * 3 & 1) << '\n';
+    cin >> a >> b >> c;
+    cout << (a + b * 2 + c * 3 & 1) << '\n';
 }
 ```
 # D. 时间管理
@@ -78,23 +78,23 @@ using LL = long long;
 int n, k[25];
 void solve()
 {
-	cin >> n;
-	for(int i = 0; i < n; i ++) cin >> k[i];
-	LL a, b, ans = 1e18;
-	for(LL state = 0; state < 1LL << n; state ++){
-		a = 0, b = 0;
-		for(int i = 0; i < n; i ++)
-			if(state >> i & 1) a += k[i];
-			else b += k[i];
-		ans = min(ans, max(a, b));
-	}
-	cout << ans;
+    cin >> n;
+    for(int i = 0; i < n; i ++) cin >> k[i];
+    LL a, b, ans = 1e18;
+    for(LL state = 0; state < 1LL << n; state ++){
+        a = 0, b = 0;
+        for(int i = 0; i < n; i ++)
+            if(state >> i & 1) a += k[i];
+            else b += k[i];
+        ans = min(ans, max(a, b));
+    }
+    cout << ans;
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    solve();
+    return 0;
 }
 ```
 # E. HRBUST
@@ -105,12 +105,12 @@ int main()
 string s;
 void solve()
 {
-	cin >> s;
-	int ans = 0;
-	for(int i = 0; i + 5 < s.size(); i ++)
-		if(s[i] == 'H' && s[i + 1] == 'R' && s[i + 2] == 'B' && s[i + 3] == 'U' && s[i + 4] == 'S' && s[i + 5] == 'T')
-			ans ++;
-	cout << ans;
+    cin >> s;
+    int ans = 0;
+    for(int i = 0; i + 5 < s.size(); i ++)
+        if(s[i] == 'H' && s[i + 1] == 'R' && s[i + 2] == 'B' && s[i + 3] == 'U' && s[i + 4] == 'S' && s[i + 5] == 'T')
+            ans ++;
+    cout << ans;
 }
 ```
 # F. 向左看"齐“
@@ -135,23 +135,23 @@ const int N = 1e5 + 10;
 int n;
 void solve()
 {
-	cin >> n;
-	stack<int> st;
-	for(int i = 1, h; i <= n; i ++){
-		cin >> h;
-		while(st.size() && st.top() >= h) st.pop();
-		if(st.empty()) cout << -1 << ' ';
-		else cout << st.top() << ' ';
-		st.push(h);
-	}
+    cin >> n;
+    stack<int> st;
+    for(int i = 1, h; i <= n; i ++){
+        cin >> h;
+        while(st.size() && st.top() >= h) st.pop();
+        if(st.empty()) cout << -1 << ' ';
+        else cout << st.top() << ' ';
+        st.push(h);
+    }
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # G. 复制粘贴吧的暴力排序
@@ -176,19 +176,19 @@ int n;
 vector<int> a;
 void solve()
 {
-	cin >> n;
-	for(int i = 0, x; i < n; i ++) cin >> x, a.push_back(x);
+    cin >> n;
+    for(int i = 0, x; i < n; i ++) cin >> x, a.push_back(x);
     sort(a.begin(), a.end(), greater<int>());
     a.erase(unique(a.begin(), a.end()), a.end());
     for(auto x : a) cout << x << ' ';
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # H. 救赎之道，不在其中
@@ -215,28 +215,28 @@ using PLL = pair<LL, LL>;
 const int MOD = 100003;
 LL qpow(LL a, LL n)
 {
-	LL ret = 1;
-	while(n){
-		if(n & 1) ret = ret * a % MOD;
-		a = a * a % MOD;
-		n >>= 1;
-	}
-	return ret;
+    LL ret = 1;
+    while(n){
+        if(n & 1) ret = ret * a % MOD;
+        a = a * a % MOD;
+        n >>= 1;
+    }
+    return ret;
 }
 LL n, m;
 void solve()
 {
-	cin >> m >> n;
-	LL ans = (qpow(m, n) - qpow(m - 1, n - 1) * m % MOD + MOD) % MOD;
-	cout << ans;
+    cin >> m >> n;
+    LL ans = (qpow(m, n) - qpow(m - 1, n - 1) * m % MOD + MOD) % MOD;
+    cout << ans;
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # I. 我们来玩游戏吧
@@ -262,32 +262,32 @@ int n, m;
 LL s1[N], s2[N];
 void add(int x, int k)
 {
-	for(int i = x; i <= n; i += lowbit(i)) s1[i] += k, s2[i] += x * k;
+    for(int i = x; i <= n; i += lowbit(i)) s1[i] += k, s2[i] += x * k;
 }
 LL query(int x)
 {
-	LL ret = 0;
-	for(int i = x; i; i -= lowbit(i)) ret += (x + 1) * s1[i] - s2[i];
-	return ret;
+    LL ret = 0;
+    for(int i = x; i; i -= lowbit(i)) ret += (x + 1) * s1[i] - s2[i];
+    return ret;
 }
 void solve()
 {
-	cin >> n >> m;
-	for(int i = 1, x; i <= n; i ++) cin >> x, add(i, x), add(i + 1, -x);
-	while(m --){
-		int op, l, r, k;
-		cin >> op >> l >> r;
-		if(op == 1) cin >> k, add(l, k), add(r + 1, -k);
-		else cout << query(r) - query(l - 1) << '\n';
-	}
+    cin >> n >> m;
+    for(int i = 1, x; i <= n; i ++) cin >> x, add(i, x), add(i + 1, -x);
+    while(m --){
+        int op, l, r, k;
+        cin >> op >> l >> r;
+        if(op == 1) cin >> k, add(l, k), add(r + 1, -k);
+        else cout << query(r) - query(l - 1) << '\n';
+    }
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # J. 再见啦!
@@ -316,31 +316,31 @@ using PLL = pair<LL, LL>;
 int n, g[30][30], dp[30][30][30];
 void solve()
 {
-	cin >> n;
-	int x, y, w;
-	while(cin >> x >> y >> w, ~x && ~y && ~w) g[x][y] = w;
-	for(int k = 2; k <= n << 1; k ++)
-		for(int x1 = 1; x1 <= n; x1 ++)
-			for(int x2 = 1; x2 <= n; x2 ++){
-				int y1 = k - x1, y2 = k - x2;
-				if(y1 < 1 || y1 > n || y2 < 1 || y2 > n) continue;
-				int &t = dp[k][x1][x2];
-				int v = g[x1][y1] + (x1 == x2 ? 0 : g[x2][y2]);
-				
-				t = max(t, max({dp[k - 1][x1 - 1][x2], 
-								dp[k - 1][x1][x2 - 1],
-								dp[k - 1][x1 - 1][x2 - 1],
-								dp[k - 1][x1][x2]}) + v);
-			}
-	cout << dp[n << 1][n][n];
+    cin >> n;
+    int x, y, w;
+    while(cin >> x >> y >> w, ~x && ~y && ~w) g[x][y] = w;
+    for(int k = 2; k <= n << 1; k ++)
+        for(int x1 = 1; x1 <= n; x1 ++)
+            for(int x2 = 1; x2 <= n; x2 ++){
+                int y1 = k - x1, y2 = k - x2;
+                if(y1 < 1 || y1 > n || y2 < 1 || y2 > n) continue;
+                int &t = dp[k][x1][x2];
+                int v = g[x1][y1] + (x1 == x2 ? 0 : g[x2][y2]);
+                
+                t = max(t, max({dp[k - 1][x1 - 1][x2], 
+                                dp[k - 1][x1][x2 - 1],
+                                dp[k - 1][x1 - 1][x2 - 1],
+                                dp[k - 1][x1][x2]}) + v);
+            }
+    cout << dp[n << 1][n][n];
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # K. 墨墨想要去玩
@@ -365,30 +365,30 @@ int n;
 PII t[3][N];
 void solve()
 {
-	cin >> n;
-	for(int i = 0; i < 3; i ++){
-		for(int j = 1; j <= n; j ++) cin >> t[i][j].fi, t[i][j].se = j;
-		sort(t[i] + 1, t[i] + n + 1, greater<PII>());
-	}
-	int ans = 0;
-	for(int i = 1; i <= 3; i ++)
-		for(int j = 1; j <= 3; j ++)
-			for(int k = 1; k <= 3; k ++){
-				auto [a, at] = t[0][i];
-				auto [b, bt] = t[1][j];
-				auto [c, ct] = t[2][k];
-				if(at == bt || bt == ct || at == ct) continue;
-				ans = max(ans, a + b + c);
-			}
-	cout << ans << '\n';
+    cin >> n;
+    for(int i = 0; i < 3; i ++){
+        for(int j = 1; j <= n; j ++) cin >> t[i][j].fi, t[i][j].se = j;
+        sort(t[i] + 1, t[i] + n + 1, greater<PII>());
+    }
+    int ans = 0;
+    for(int i = 1; i <= 3; i ++)
+        for(int j = 1; j <= 3; j ++)
+            for(int k = 1; k <= 3; k ++){
+                auto [a, at] = t[0][i];
+                auto [b, bt] = t[1][j];
+                auto [c, ct] = t[2][k];
+                if(at == bt || bt == ct || at == ct) continue;
+                ans = max(ans, a + b + c);
+            }
+    cout << ans << '\n';
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # L. 走格子
@@ -412,45 +412,45 @@ int n, m, g[110][110], vis[110][110];
 int dx[] = {-1, 0, 1, 0}, dy[] = {0, 1, 0, -1};
 struct node
 {
-	int x, y, dis;
+    int x, y, dis;
 };
 void solve()
 {
-	cin >> n >> m;
-	for(int i = 1; i <= n; i ++)
-		for(int j = 1; j <= m; j ++) cin >> g[i][j];
-	if(g[1][1] == 3){
-		cout << 0;
-		return ;
-	}
-	queue<node> q;
-	q.push({1, 1, 0});
-	vis[1][1] = 1;
-	while(q.size()){
-		auto [x, y, dis] = q.front();
-		q.pop();
-		vis[x][y] = 1;
-		for(int i = 0, xx, yy; i < 4; i ++){
-			xx = dx[i] + x, yy = dy[i] + y;
-			if(xx < 1 || xx > n || yy < 1 || yy > m) continue;
-			if(g[xx][yy] == 2 || vis[xx][yy]) continue;
-			if(g[xx][yy] == 3){
-				cout << "Yes " << dis + 1;
-				return ;
-			}
-			q.push({xx, yy, dis + 1});
-			vis[xx][yy] = 1;
-		}
-	}
-	cout << "No";
+    cin >> n >> m;
+    for(int i = 1; i <= n; i ++)
+        for(int j = 1; j <= m; j ++) cin >> g[i][j];
+    if(g[1][1] == 3){
+        cout << 0;
+        return ;
+    }
+    queue<node> q;
+    q.push({1, 1, 0});
+    vis[1][1] = 1;
+    while(q.size()){
+        auto [x, y, dis] = q.front();
+        q.pop();
+        vis[x][y] = 1;
+        for(int i = 0, xx, yy; i < 4; i ++){
+            xx = dx[i] + x, yy = dy[i] + y;
+            if(xx < 1 || xx > n || yy < 1 || yy > m) continue;
+            if(g[xx][yy] == 2 || vis[xx][yy]) continue;
+            if(g[xx][yy] == 3){
+                cout << "Yes " << dis + 1;
+                return ;
+            }
+            q.push({xx, yy, dis + 1});
+            vis[xx][yy] = 1;
+        }
+    }
+    cout << "No";
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # M. 组建乐队
@@ -466,18 +466,18 @@ using LL = long long;
 
 void solve()
 {
-	int n; cin >> n;
-	int ans = 2e9;
-	for(int i1 = 0; i1 <= 2; i1 ++)
-		for(int i3 = 0; i3 <= 1; i3 ++)
-			for(int i6 = 0; i6 <= 2; i6 ++)
-				for(int i10 = 0; i10 <= 2; i10 ++){
-					int x = i1 + i3 * 3 + i6 * 6 + i10 * 10;
-					int t = i1 + i3 + i6 + i10 + (n - x) / 15;
-					if(x <= n && !((n - x) % 15))
-						ans = min(ans, t);
-				}
-	cout << ans << '\n';
+    int n; cin >> n;
+    int ans = 2e9;
+    for(int i1 = 0; i1 <= 2; i1 ++)
+        for(int i3 = 0; i3 <= 1; i3 ++)
+            for(int i6 = 0; i6 <= 2; i6 ++)
+                for(int i10 = 0; i10 <= 2; i10 ++){
+                    int x = i1 + i3 * 3 + i6 * 6 + i10 * 10;
+                    int t = i1 + i3 + i6 + i10 + (n - x) / 15;
+                    if(x <= n && !((n - x) % 15))
+                        ans = min(ans, t);
+                }
+    cout << ans << '\n';
 }
 int main()
 {
@@ -508,31 +508,31 @@ const int N = 1e5 + 10;
 int n, c, a[N];
 bool check(int x)
 {
-	int cnt = 1;
-	for(int i = 1, last = a[1]; i <= n; i ++)
-		if(a[i] - last >= x) cnt ++, last = a[i];
-	return cnt >= c;
+    int cnt = 1;
+    for(int i = 1, last = a[1]; i <= n; i ++)
+        if(a[i] - last >= x) cnt ++, last = a[i];
+    return cnt >= c;
 }
 void solve()
 {
-	cin >> n >> c;
-	for(int i = 1; i <= n; i ++) cin >> a[i];
-	sort(a + 1, a + n + 1);
-	int l = 1, r = 1e9 + 10;
-	while(l < r){
-		int mid = l + r + 1 >> 1;
-		if(check(mid)) l = mid;
-		else r = mid - 1;
-	}
-	cout << l;
+    cin >> n >> c;
+    for(int i = 1; i <= n; i ++) cin >> a[i];
+    sort(a + 1, a + n + 1);
+    int l = 1, r = 1e9 + 10;
+    while(l < r){
+        int mid = l + r + 1 >> 1;
+        if(check(mid)) l = mid;
+        else r = mid - 1;
+    }
+    cout << l;
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # O. 妮蔻的MAJOR梦
@@ -566,35 +566,35 @@ void dfs(int x, int y, int lx, int ly)
         return ;
     }
     vis[x][y][1] = lx, vis[x][y][2] = ly, vis[x][y][0] = 1;
-	for(int i = 0; i < 4; i ++) {
-		int xx = (x + dx[i] + n) % n, yy = (y + dy[i] + m) % m;
-		int lxx = lx + dx[i], lyy = ly + dy[i];
+    for(int i = 0; i < 4; i ++) {
+        int xx = (x + dx[i] + n) % n, yy = (y + dy[i] + m) % m;
+        int lxx = lx + dx[i], lyy = ly + dy[i];
         if(g[xx][yy] == '#') continue;
 
         if(vis[xx][yy][1] != lxx || vis[xx][yy][2] != lyy || !vis[xx][yy][0])
             dfs(xx, yy, lxx, lyy);
-	}
+    }
 }
 void solve()
 {
     memset(vis, 0, sizeof vis);
     ok = 0;
-	PII S;
-	for(int i = 0; i < n; i ++){
-		cin >> g[i];
-		for(int j = 0; j < m; j ++)
-			if(g[i][j] == 'S') S = {i, j};
-	}
+    PII S;
+    for(int i = 0; i < n; i ++){
+        cin >> g[i];
+        for(int j = 0; j < m; j ++)
+            if(g[i][j] == 'S') S = {i, j};
+    }
     dfs(S.fi, S.se, S.fi, S.se);
     cout << (ok ? "Yes" : "No") << '\n';
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(cin >> n >> m) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(cin >> n >> m) solve();
+    return 0;
 }
 ```
 # P. 不给糖就捣蛋
@@ -670,68 +670,68 @@ int n, m, q;
 LL d[N][N];
 struct road
 {
-	int u, v, w;
+    int u, v, w;
 }r[M];
 struct query
 {
     char op;
-	int a, b;
+    int a, b;
 };
 void floyd()
 {
-	for(int k = 1; k <= n; k ++)
-		for(int i = 1; i <= n; i ++)
-			for(int j = 1; j <= n; j ++)
-				d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+    for(int k = 1; k <= n; k ++)
+        for(int i = 1; i <= n; i ++)
+            for(int j = 1; j <= n; j ++)
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
 }
 void update(int u, int v)
 {
-	for(int i = 1; i <= n; i ++)
-		for(int j = 1; j <= n; j ++)
-			d[i][j] = min({d[i][j], d[i][u] + d[u][v] + d[v][j], d[i][v] + d[v][u] + d[u][j]});
+    for(int i = 1; i <= n; i ++)
+        for(int j = 1; j <= n; j ++)
+            d[i][j] = min({d[i][j], d[i][u] + d[u][v] + d[v][j], d[i][v] + d[v][u] + d[u][j]});
 }
 void solve()
 {
-	cin >> n >> m >> q;
-	for(int i = 1; i <= n; i ++)
-		for(int j = 1; j <= n; j ++)
-			d[i][j] = (i == j ? 0 : 1e18);
-	for(int i = 1, u, v, w; i <= m; i ++)
-		cin >> u >> v >> w, d[u][v] = d[v][u] = min(d[u][v], (LL)w), r[i] = {u, v, w};
-	vector<query> vq;
-	for(int i = 1; i <= q; i ++){
-		char op; 
+    cin >> n >> m >> q;
+    for(int i = 1; i <= n; i ++)
+        for(int j = 1; j <= n; j ++)
+            d[i][j] = (i == j ? 0 : 1e18);
+    for(int i = 1, u, v, w; i <= m; i ++)
+        cin >> u >> v >> w, d[u][v] = d[v][u] = min(d[u][v], (LL)w), r[i] = {u, v, w};
+    vector<query> vq;
+    for(int i = 1; i <= q; i ++){
+        char op; 
         int a, b = 0;
-		cin >> op >> a;
-		if(op == 'D'){
-			auto [u, v, w] = r[a];
-			d[u][v] = d[v][u] = 1e18;
-		} 
-		else cin >> b;
-		vq.push_back({op, a, b});
-	}
-	floyd();
-	reverse(vq.begin(), vq.end());
-	vector<LL> ans;
-	for(auto [op, a, b] : vq){
-		if(op == 'D'){
-			auto [u, v, w] = r[a];
-			d[u][v] = d[v][u] = min(d[u][v], (LL)w);
-			update(u, v);
-			continue;
-		}
-		ans.push_back((d[a][b] >= 1e18 ? -1 : d[a][b]));
-	}
-	reverse(ans.begin(), ans.end());
-	for(auto x : ans) cout << x << '\n';
+        cin >> op >> a;
+        if(op == 'D'){
+            auto [u, v, w] = r[a];
+            d[u][v] = d[v][u] = 1e18;
+        } 
+        else cin >> b;
+        vq.push_back({op, a, b});
+    }
+    floyd();
+    reverse(vq.begin(), vq.end());
+    vector<LL> ans;
+    for(auto [op, a, b] : vq){
+        if(op == 'D'){
+            auto [u, v, w] = r[a];
+            d[u][v] = d[v][u] = min(d[u][v], (LL)w);
+            update(u, v);
+            continue;
+        }
+        ans.push_back((d[a][b] >= 1e18 ? -1 : d[a][b]));
+    }
+    reverse(ans.begin(), ans.end());
+    for(auto x : ans) cout << x << '\n';
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 # R. 关于acm竞赛中题目名字越长就越有可能是签到题这件事
@@ -777,47 +777,47 @@ __gnu_pbds::rb_tree_tag,
 __gnu_pbds::tree_order_statistics_node_update> st[N];
 struct DSU
 {
-	int p[N];
-	void init()
-	{
-		for(int i = 0; i <= n; i ++) p[i] = i;
-	}
-	int find(int x)
-	{
-		return p[x] == x ? x : (p[x] = find(p[x]));
-	}
-	void merge(int a, int b)
-	{
-		int fa = find(a), fb = find(b);
-		if(fa == fb) return ;
-		if(st[fa].size() > st[fb].size()) swap(fa, fb);
-		p[fa] = fb;
-		for(auto x : st[fa]) st[fb].insert(x);
-		st[fa].clear();
-	}
+    int p[N];
+    void init()
+    {
+        for(int i = 0; i <= n; i ++) p[i] = i;
+    }
+    int find(int x)
+    {
+        return p[x] == x ? x : (p[x] = find(p[x]));
+    }
+    void merge(int a, int b)
+    {
+        int fa = find(a), fb = find(b);
+        if(fa == fb) return ;
+        if(st[fa].size() > st[fb].size()) swap(fa, fb);
+        p[fa] = fb;
+        for(auto x : st[fa]) st[fb].insert(x);
+        st[fa].clear();
+    }
 }dsu;
 void solve()
 {
-	cin >> n >> q;
-	dsu.init();
-	for(int i = 1; i <= n; i ++) st[i].insert(i);
-	while(q --){
-		char op;
+    cin >> n >> q;
+    dsu.init();
+    for(int i = 1; i <= n; i ++) st[i].insert(i);
+    while(q --){
+        char op;
         int n1, n2;
-		cin >> op >> n1 >> n2;
-		if(op == 'C') dsu.merge(n1, n2);
-		else{
-			n1 = dsu.find(n1);
-			cout << (st[n1].size() >= n2 ? *st[n1].find_by_order(n2 - 1) : -1) << '\n';
-		}
-	}
+        cin >> op >> n1 >> n2;
+        if(op == 'C') dsu.merge(n1, n2);
+        else{
+            n1 = dsu.find(n1);
+            cout << (st[n1].size() >= n2 ? *st[n1].find_by_order(n2 - 1) : -1) << '\n';
+        }
+    }
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
