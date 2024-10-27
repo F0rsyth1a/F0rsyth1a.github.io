@@ -875,48 +875,48 @@ PII f[10];
 int vis[10];
 bool check()
 {
-	for(int i = 1; i <= n; i ++)
-		if(f[i].h > 0) return 0;
-	return 1;
+    for(int i = 1; i <= n; i ++)
+        if(f[i].h > 0) return 0;
+    return 1;
 }
 bool ok;
 void dfs()
 {
-	if(check()){
-		ok = 1;
-		return ;
-	}
-	
-	for(int i = 1; i <= n; i ++){
-		if(check()) break;
-		if(f[i].h <= 0 || !f[i].a || vis[i]) continue;
-		for(int j = 1; j <= n; j ++){
-			if(i == j || f[j].h <= 0) continue;
-			if(check()) break;
-			vis[i] = 1;
-			f[i].h -= f[j].a;
-			f[j].h -= f[i].a;
-			dfs();
-			vis[i] = 0;
-			f[i].h += f[j].a;
-			f[j].h += f[i].a;
-		}
-	}
+    if(check()){
+        ok = 1;
+        return ;
+    }
+    
+    for(int i = 1; i <= n; i ++){
+        if(check()) break;
+        if(f[i].h <= 0 || !f[i].a || vis[i]) continue;
+        for(int j = 1; j <= n; j ++){
+            if(i == j || f[j].h <= 0) continue;
+            if(check()) break;
+            vis[i] = 1;
+            f[i].h -= f[j].a;
+            f[j].h -= f[i].a;
+            dfs();
+            vis[i] = 0;
+            f[i].h += f[j].a;
+            f[j].h += f[i].a;
+        }
+    }
 }
 void solve()
 {
-	cin >> n;
-	for(int i = 1; i <= n; i ++) cin >> f[i].a >> f[i].h;
-	dfs();
-	cout << (ok ? "yes" : "no");
+    cin >> n;
+    for(int i = 1; i <= n; i ++) cin >> f[i].a >> f[i].h;
+    dfs();
+    cout << (ok ? "yes" : "no");
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
 
@@ -942,44 +942,44 @@ int p[N], sz[N], c[N], mx[N];
 int n, m, q;
 void init()
 {
-	for(int i = 1; i <= n; i ++) p[i] = i, sz[i] = 1;
+    for(int i = 1; i <= n; i ++) p[i] = i, sz[i] = 1;
 }
 inline int find(int x)
 {
-	return p[x] == x ? x : p[x] = find(p[x]);
+    return p[x] == x ? x : p[x] = find(p[x]);
 }
 void merge(int x, int y)
 {
-	x = find(x), y = find(y);
-	if(x == y) return ;
-	if(sz[x] < sz[y]) swap(x, y);
-	p[y] = x, mx[x] = max(mx[x], mx[y]);
-	sz[x] += sz[y];
+    x = find(x), y = find(y);
+    if(x == y) return ;
+    if(sz[x] < sz[y]) swap(x, y);
+    p[y] = x, mx[x] = max(mx[x], mx[y]);
+    sz[x] += sz[y];
 }
 void solve()
 {
-	cin >> n;
-	init();
-	for(int i = 1; i <= n; i ++) cin >> c[i], mx[i] = c[i];
-	cin >> m;
-	while(m --){
-		int u, v; cin >> u >> v;
-		merge(u, v);
-	}
-	cin >> q;
-	while(q --){
-		int u, v; cin >> u >> v;
-		int fu = find(u), fv = find(v);
-		if(fu == fv) cout << c[u] + c[v] << '\n';
-		else cout << mx[fu] + mx[fv] << '\n';
-	}
+    cin >> n;
+    init();
+    for(int i = 1; i <= n; i ++) cin >> c[i], mx[i] = c[i];
+    cin >> m;
+    while(m --){
+        int u, v; cin >> u >> v;
+        merge(u, v);
+    }
+    cin >> q;
+    while(q --){
+        int u, v; cin >> u >> v;
+        int fu = find(u), fv = find(v);
+        if(fu == fv) cout << c[u] + c[v] << '\n';
+        else cout << mx[fu] + mx[fv] << '\n';
+    }
 }
 int main()
 {
-	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int Case = 1;
-	//cin >> Case;
-	while(Case --) solve();
-	return 0;
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int Case = 1;
+    //cin >> Case;
+    while(Case --) solve();
+    return 0;
 }
 ```
