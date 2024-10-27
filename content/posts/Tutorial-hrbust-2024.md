@@ -7,9 +7,25 @@ categories = ["题解"]
 author = "Forsythia"
 +++
   
-所有代码：https://wwed.lanzout.com/i6gso2d8axgd
+# A. 罚时
+> 签到
 
-# A. 干杯！
+略
+# B. 数学题
+> 思维，签到
+
+输出n个9即可
+## ac code
+```cpp
+#include<iostream>
+int main()
+{
+    int n; std::cin >> n;
+    for(int i = 1; i <= n; i ++) std::cout << 9;
+    return 0;
+}
+``` 
+# C. 干杯！
 > 字符串，签到
 
 ## ac code
@@ -38,82 +54,7 @@ int main()
     return 0;
 }
 ```
-# B. 墨墨的妙妙卡片
-> 思维，签到
-
-只要有一个卡片的初始位置正确就能一次完成排序。
-## ac code
-```cpp
-string s;
-void solve()
-{
-    cin >> s;
-    cout << (s[0] == 'a' || s[1] == 'b' || s[2] == 'c' ? "YES" : "NO") << '\n';
-}
-```
-# C. 墨墨与春日影
-> 思维，签到
-
-可以把演奏2分钟视为演奏2次1分钟，3分钟视为演奏3次1分钟。看是否能把所有演出平均分配到两次即可。
-## ac code
-```cpp
-int a, b, c;
-void solve()
-{
-    cin >> a >> b >> c;
-    cout << (a + b * 2 + c * 3 & 1) << '\n';
-}
-```
-# D. 时间管理
-> 暴力
-
-发现n<=20，枚举每一种分配方法复杂度为o($2^n$)。  
-枚举分配方法可以用二进制位掩码。
-## ac code
-```cpp
-#include<iostream>
-using namespace std;
-using LL = long long;
-
-int n, k[25];
-void solve()
-{
-    cin >> n;
-    for(int i = 0; i < n; i ++) cin >> k[i];
-    LL a, b, ans = 1e18;
-    for(LL state = 0; state < 1LL << n; state ++){
-        a = 0, b = 0;
-        for(int i = 0; i < n; i ++)
-            if(state >> i & 1) a += k[i];
-            else b += k[i];
-        ans = min(ans, max(a, b));
-    }
-    cout << ans;
-}
-int main()
-{
-    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-    solve();
-    return 0;
-}
-```
-# E. HRBUST
-> 字符串，签到
-
-## ac code
-```cpp
-string s;
-void solve()
-{
-    cin >> s;
-    int ans = 0;
-    for(int i = 0; i + 5 < s.size(); i ++)
-        if(s[i] == 'H' && s[i + 1] == 'R' && s[i + 2] == 'B' && s[i + 3] == 'U' && s[i + 4] == 'S' && s[i + 5] == 'T')
-            ans ++;
-    cout << ans;
-}
-```
-# F. 向左看"齐“
+# D. 向左看
 > 单调栈
 
 维护一个单调递减的栈，栈顶即左边第一个小于的数。
@@ -154,7 +95,86 @@ int main()
     return 0;
 }
 ```
-# G. 复制粘贴吧的暴力排序
+
+# E. HRBUST
+> 字符串，签到
+
+## ac code
+```cpp
+string s;
+void solve()
+{
+    cin >> s;
+    int ans = 0;
+    for(int i = 0; i + 5 < s.size(); i ++)
+        if(s[i] == 'H' && s[i + 1] == 'R' && s[i + 2] == 'B' && s[i + 3] == 'U' && s[i + 4] == 'S' && s[i + 5] == 'T')
+            ans ++;
+    cout << ans;
+}
+```
+# F. 时间管理
+> 暴力
+
+发现n<=20，枚举每一种分配方法复杂度为o($2^n$)。  
+枚举分配方法可以用二进制位掩码。
+## ac code
+```cpp
+#include<iostream>
+using namespace std;
+using LL = long long;
+
+int n, k[25];
+void solve()
+{
+    cin >> n;
+    for(int i = 0; i < n; i ++) cin >> k[i];
+    LL a, b, ans = 1e18;
+    for(LL state = 0; state < 1LL << n; state ++){
+        a = 0, b = 0;
+        for(int i = 0; i < n; i ++)
+            if(state >> i & 1) a += k[i];
+            else b += k[i];
+        ans = min(ans, max(a, b));
+    }
+    cout << ans;
+}
+int main()
+{
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    solve();
+    return 0;
+}
+```
+
+# G. 墨墨的妙妙卡片
+> 思维，签到
+
+只要有一个卡片的初始位置正确就能一次完成排序。
+## ac code
+```cpp
+string s;
+void solve()
+{
+    cin >> s;
+    cout << (s[0] == 'a' || s[1] == 'b' || s[2] == 'c' ? "YES" : "NO") << '\n';
+}
+```
+
+# H. 墨墨与春日影
+> 思维，签到
+
+可以把演奏2分钟视为演奏2次1分钟，3分钟视为演奏3次1分钟。看是否能把所有演出平均分配到两次即可。
+## ac code
+```cpp
+int a, b, c;
+void solve()
+{
+    cin >> a >> b >> c;
+    cout << (a + b * 2 + c * 3 & 1) << '\n';
+}
+```
+
+# I. 复制粘贴吧的暴力排序
 > 排序
 
 排序后去重，可以使用unique函数等。 
@@ -191,7 +211,8 @@ int main()
     return 0;
 }
 ```
-# H. 救赎之道，不在其中
+
+# J. 救赎之道，不在其中
 > 数学，快速幂
 
 所有可能的情况一共$m^n$种，每一个犯人可信仰有m种情况，无法越狱的情况为两两相邻
@@ -239,11 +260,13 @@ int main()
     return 0;
 }
 ```
-# I. 我们来玩游戏吧
+
+# K. 我们来玩游戏吧！
 > 数据结构
 
 需要维护一种数据结构，支持：区间修改，区间查询。  
-可以选择树状数组，线段树等，复杂度o(mlogn)。
+可以选择树状数组，线段树等，复杂度o(mlogn)。  
+（这道题数据出弱了，使得暴力也能ac。。。）
 ## ac code
 ```cpp
 #include<iostream>
@@ -290,7 +313,7 @@ int main()
     return 0;
 }
 ```
-# J. 再见啦!
+# L. 再见啦!
 > 线性dp 
 
 dp经典题。  
@@ -343,7 +366,8 @@ int main()
     return 0;
 }
 ```
-# K. 墨墨想要去玩
+
+# M. 墨墨想要去玩
 > 排序，枚举
 
 分别对a，b，c数组排序，枚举前三大的所有组合，两两间的日期不能相同。
@@ -391,7 +415,8 @@ int main()
     return 0;
 }
 ```
-# L. 走格子
+
+# N. 走格子
 > bfs
 
 ## ac code
@@ -453,7 +478,8 @@ int main()
     return 0;
 }
 ```
-# M. 组建乐队
+
+# O. 组建乐队
 > 枚举，贪心
 
 考虑枚举直接枚举每种价格的个数，复杂度过高。  
@@ -487,7 +513,8 @@ int main()
     return 0;
 }
 ```
-# N. 进击的败犬
+
+# P. 进击的败犬
 > 二分
 
 二分经典题进击的奶牛。
@@ -535,7 +562,8 @@ int main()
     return 0;
 }
 ```
-# O. 妮蔻的MAJOR梦
+
+# Q. 妮蔻的MAJOR梦
 > dfs
 
 如果在非初始地图中，访问到在初始地图访问过的点，即为开放图。  
@@ -597,7 +625,8 @@ int main()
     return 0;
 }
 ```
-# P. 不给糖就捣蛋
+
+# R. 不给糖就捣蛋
 > 二分
 
 对边长进行二分，每次检查$\frac{w}{a} * \frac{h}{a}$是否大于等于k。
@@ -634,7 +663,8 @@ int main()
     return 0;
 }
 ```
-# Q. 让我们打开天窗说亮话吧
+
+# S. 让我们打开天窗说亮话吧
 > 图论，多源最短路
 
 观察数据范围发现两点间最短路可以跑floyd。  
@@ -734,7 +764,8 @@ int main()
     return 0;
 }
 ```
-# R. 关于acm竞赛中题目名字越长就越有可能是签到题这件事
+
+# T. 关于acm竞赛中题目名字越长就越有可能是签到题这件事
 > 并查集，平衡二叉树，启发式合并
 
 需要在并查集中维护一种数据结构，支持：合并，插入，按序查询  
@@ -819,5 +850,136 @@ int main()
     //cin >> Case;
     while(Case --) solve();
     return 0;
+}
+```
+
+# U. 清场
+> dfs
+
+注意到n非常小，直接用dfs枚举所有攻击的情况。
+## ac code
+```cpp
+#include<iostream>
+#include<algorithm>
+using namespace std;
+using LL = long long;
+using ULL = unsigned long long;
+using PII = pair<int, int>;
+using PLL = pair<LL, LL>;
+#define lowbit(x) (x&-x)
+#define a first
+#define h second
+
+int n;
+PII f[10];
+int vis[10];
+bool check()
+{
+	for(int i = 1; i <= n; i ++)
+		if(f[i].h > 0) return 0;
+	return 1;
+}
+bool ok;
+void dfs()
+{
+	if(check()){
+		ok = 1;
+		return ;
+	}
+	
+	for(int i = 1; i <= n; i ++){
+		if(check()) break;
+		if(f[i].h <= 0 || !f[i].a || vis[i]) continue;
+		for(int j = 1; j <= n; j ++){
+			if(i == j || f[j].h <= 0) continue;
+			if(check()) break;
+			vis[i] = 1;
+			f[i].h -= f[j].a;
+			f[j].h -= f[i].a;
+			dfs();
+			vis[i] = 0;
+			f[i].h += f[j].a;
+			f[j].h += f[i].a;
+		}
+	}
+}
+void solve()
+{
+	cin >> n;
+	for(int i = 1; i <= n; i ++) cin >> f[i].a >> f[i].h;
+	dfs();
+	cout << (ok ? "yes" : "no");
+}
+int main()
+{
+	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+	int Case = 1;
+	//cin >> Case;
+	while(Case --) solve();
+	return 0;
+}
+```
+
+# V. 六度分隔理论
+> 并查集
+
+并查集维护朋友关系及一个集合中的最大值，查询时根据两人是否在同一集合。
+## ac code
+```cpp
+#include<iostream>
+#include<algorithm>
+using namespace std;
+using LL = long long;
+using ULL = unsigned long long;
+using PII = pair<int, int>;
+using PLL = pair<LL, LL>;
+#define lowbit(x) (x&-x)
+#define fi first
+#define se second
+
+const int N = 5e3 + 10;
+int p[N], sz[N], c[N], mx[N];
+int n, m, q;
+void init()
+{
+	for(int i = 1; i <= n; i ++) p[i] = i, sz[i] = 1;
+}
+inline int find(int x)
+{
+	return p[x] == x ? x : p[x] = find(p[x]);
+}
+void merge(int x, int y)
+{
+	x = find(x), y = find(y);
+	if(x == y) return ;
+	if(sz[x] < sz[y]) swap(x, y);
+	p[y] = x, mx[x] = max(mx[x], mx[y]);
+	sz[x] += sz[y];
+}
+void solve()
+{
+	cin >> n;
+	init();
+	for(int i = 1; i <= n; i ++) cin >> c[i], mx[i] = c[i];
+	cin >> m;
+	while(m --){
+		int u, v; cin >> u >> v;
+		merge(u, v);
+	}
+	cin >> q;
+	while(q --){
+		int u, v; cin >> u >> v;
+		int fu = find(u), fv = find(v);
+		if(fu == fv) cout << c[u] + c[v] << '\n';
+		else cout << mx[fu] + mx[fv] << '\n';
+	}
+}
+int main()
+{
+	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+	int Case = 1;
+	//cin >> Case;
+	while(Case --) solve();
+	return 0;
 }
 ```
