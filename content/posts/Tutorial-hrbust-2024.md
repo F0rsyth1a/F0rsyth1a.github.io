@@ -267,6 +267,8 @@ int main()
 需要维护一种数据结构，支持：区间修改，区间查询。  
 可以选择树状数组，线段树等，复杂度o(mlogn)。  
 （这道题数据出弱了，使得暴力也能ac。。。）
+
+11/8更新：感谢勘误，修改了会爆int的问题，现在能ac了
 ## ac code
 ```cpp
 #include<iostream>
@@ -280,17 +282,17 @@ using PLL = pair<LL, LL>;
 #define fi first
 #define se second
 
-const int N = 1e5;
+const int N = 1e5 + 10;
 int n, m;
 LL s1[N], s2[N];
 void add(int x, int k)
 {
-    for(int i = x; i <= n; i += lowbit(i)) s1[i] += k, s2[i] += x * k;
+    for(int i = x; i <= n; i += lowbit(i)) s1[i] += k, s2[i] += 1LL * x * k;
 }
 LL query(int x)
 {
     LL ret = 0;
-    for(int i = x; i; i -= lowbit(i)) ret += (x + 1) * s1[i] - s2[i];
+    for(int i = x; i; i -= lowbit(i)) ret += (LL)(x + 1) * s1[i] - s2[i];
     return ret;
 }
 void solve()
