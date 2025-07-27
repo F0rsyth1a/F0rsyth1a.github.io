@@ -48,7 +48,7 @@ void solve()
 
 # C - Concat (X-th)
 
-## 暴力即可
+暴力即可
 
 ## ac code
 ~~~cpp
