@@ -43,6 +43,9 @@ languages:
         - name: search
           pageRef: search/
           weight: 5
+        - name: "game"
+          url: "/games/snake/"
+          weight: 30
         - name: about
           pageRef: about/
           weight: 21

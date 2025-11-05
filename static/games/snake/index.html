@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>贪吃蛇 | Snake</title>
+  <style>
+    :root { --ui:#111; --bg:#ffffff; --grid:#e8e8e8; --snake:#2d6cdf; --food:#e63946; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; background:var(--bg); color:var(--ui); font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Noto Sans,Arial,"PingFang SC","Hiragino Sans GB","Microsoft Yahei",sans-serif; }
+    .wrap{ max-width:520px; margin:24px auto; padding:0 12px 28px; }
+    h1{ font-size:20px; margin:12px 0 8px; text-align:center; }
+    .meta{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; align-items:center; font-size:14px; opacity:.9; }
+    .meta b{ font-weight:600; }
+    .board{ position:relative; aspect-ratio:1/1; width:100%; max-width:480px; margin:12px auto 8px; border:1px solid #ddd; border-radius:12px; overflow:hidden; background:#fff; touch-action:none; }
+    canvas{ width:100%; height:100%; display:block; }
+    .btns{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:8px; }
+    button{ cursor:pointer; border:1px solid #ddd; background:#fff; border-radius:10px; padding:8px 12px; font-size:14px; }
+    button:hover{ background:#f6f6f6; }
+    .kbd{ font:12px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:#f3f3f3; border:1px solid #e5e5e5; border-bottom-width:2px; padding:2px 6px; border-radius:6px; }
+    .hint{ font-size:13px; color:#666; text-align:center; }
+    .controls{ display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .dpad{ display:grid; grid-template-columns:56px 56px 56px; grid-template-rows:56px 56px 56px; justify-content:center; align-items:center; }
+    .dpad button{ border-radius:8px; font-size:18px; }
+    .dpad .up{ grid-column:2; grid-row:1; }
+    .dpad .left{ grid-column:1; grid-row:2; }
+    .dpad .right{ grid-column:3; grid-row:2; }
+    .dpad .down{ grid-column:2; grid-row:3; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>贪吃蛇 Snake</h1>
+    <div class="meta">
+      <div>分数：<b id="score">0</b></div>
+      <div>最高：<b id="hiscore">0</b></div>
+      <div>速度：<b id="speed">1x</b></div>
+    </div>
+    <div class="board" tabindex="0" id="board" aria-label="Snake game board (focus to play)">
+      <canvas id="c"></canvas>
+    </div>
+    <div class="btns">
+      <button id="btn-start">开始 / 暂停 (<span class="kbd">Space</span>)</button>
+      <button id="btn-restart">重开 (<span class="kbd">R</span>)</button>
+      <button id="btn-speed">切换速度</button>
+    </div>
+    <div class="controls">
+      <div class="dpad">
+        <button type="button" class="up" aria-label="Up">↑</button>
+        <button type="button" class="left" aria-label="Left">←</button>
+        <button type="button" class="right" aria-label="Right">→</button>
+        <button type="button" class="down" aria-label="Down">↓</button>
+      </div>
+    </div>
+    <p class="hint">方向键 / 滑动控制。暂停：空格或点击棋盘。重开：R。</p>
+  </div>
+
+  <script>
+  (function(){
+    // ---- Config ----
+    var GRID = 24;                 // 24x24 网格
+    var SPEEDS = [8, 12, 16];      // 步/秒
+
+    // ---- State ----
+    var cellPx = 16;
+    var ctx = null, cvs = null;
+    var stepPerSec = SPEEDS[0];
+    var lastTime = 0, acc = 0;
+    var running = false;
+
+    var DIRS = { left:[-1,0], right:[1,0], up:[0,-1], down:[0,1] };
+    var dir = DIRS.right, nextDir = dir;
+    var snake = [];
+    var food = {x:0,y:0};
+    var score = 0;
+    var hiscore = Number(localStorage.getItem('snake_hiscore') || 0);
+
+    // DOM
+    function $(sel){ return document.querySelector(sel); }
+    var board = $('#board');
+    var scoreEl = $('#score');
+    var hiscoreEl = $('#hiscore');
+    var speedEl = $('#speed');
+
+    function cssVar(name, fallback){
+      var v = getComputedStyle(document.documentElement).getPropertyValue(name);
+      v = v ? v.trim() : '';
+      return v || fallback;
+    }
+
+    function initCanvas(){
+      cvs = document.getElementById('c');
+      var bw = board.clientWidth;
+      var size = Math.max(Math.min(bw || 480, 480), 240); // 防止 0 宽
+      cellPx = Math.max(1, Math.floor(size / GRID));
+      var px = cellPx * GRID;
+      cvs.width = px; cvs.height = px;
+      ctx = cvs.getContext('2d');
+      drawGrid();
+    }
+
+    function drawGrid(){
+      if(!ctx) return;
+      ctx.clearRect(0,0,cvs.width,cvs.height);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0,0,cvs.width,cvs.height);
+      ctx.strokeStyle = cssVar('--grid', '#e8e8e8');
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for(var i=1;i<GRID;i++){
+        var p = i*cellPx + 0.5;
+        ctx.moveTo(p,0); ctx.lineTo(p,cvs.height);
+        ctx.moveTo(0,p); ctx.lineTo(cvs.width,p);
+      }
+      ctx.stroke();
+    }
+
+    function randCell(){ return { x: (Math.random()*GRID)|0, y: (Math.random()*GRID)|0 }; }
+
+    function placeFood(){
+      do { food = randCell(); }
+      while(snake.some(function(s){ return s.x===food.x && s.y===food.y; }));
+    }
+
+    function reset(){
+      dir = DIRS.right; nextDir = dir;
+      var cx = (GRID/2)|0, cy = (GRID/2)|0;
+      snake = [ {x:cx, y:cy}, {x:cx-1, y:cy}, {x:cx-2, y:cy} ];
+      score = 0; scoreEl.textContent = String(score);
+      placeFood();
+      drawAll();
+    }
+
+    function drawAll(){
+      drawGrid();
+      if(!ctx) return;
+      // 食物
+      ctx.fillStyle = cssVar('--food', '#e63946');
+      ctx.fillRect(food.x*cellPx, food.y*cellPx, cellPx, cellPx);
+      // 蛇
+      ctx.fillStyle = cssVar('--snake', '#2d6cdf');
+      for(var i=0;i<snake.length;i++){
+        var s = snake[i];
+        ctx.fillRect(s.x*cellPx+1, s.y*cellPx+1, cellPx-2, cellPx-2);
+      }
+    }
+
+    function step(){
+      dir = nextDir;
+      var head = { x:(snake[0].x + dir[0] + GRID) % GRID, y:(snake[0].y + dir[1] + GRID) % GRID };
+      // 撞到自己
+      for(var i=0;i<snake.length;i++){
+        if(snake[i].x===head.x && snake[i].y===head.y){ gameOver(); return; }
+      }
+      snake.unshift(head);
+      if(head.x===food.x && head.y===food.y){
+        score++; scoreEl.textContent = String(score);
+        if(score>hiscore){ hiscore = score; localStorage.setItem('snake_hiscore', String(hiscore)); }
+        hiscoreEl.textContent = String(hiscore);
+        placeFood();
+      }else{
+        snake.pop();
+      }
+      drawAll();
+    }
+
+    function gameOver(){
+      running = false; acc = 0; lastTime = 0;
+      drawAll();
+      if(!ctx) return;
+      ctx.fillStyle = 'rgba(0,0,0,0.55)';
+      ctx.fillRect(0,0,cvs.width,cvs.height);
+      ctx.fillStyle = '#fff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = 'bold 28px system-ui,-apple-system,Segoe UI,Roboto,Arial';
+      ctx.fillText('游戏结束', cvs.width/2, cvs.height/2 - 12);
+      ctx.font = '16px system-ui,-apple-system,Segoe UI,Roboto,Arial';
+      ctx.fillText('按 R 重开', cvs.width/2, cvs.height/2 + 16);
+    }
+
+    function loop(ts){
+      if(!running) return;
+      if(!lastTime) lastTime = ts;
+      var dt = (ts - lastTime) / 1000; // 秒
+      lastTime = ts;
+      acc += dt;
+      var stepTime = 1 / stepPerSec;
+      while(acc >= stepTime){ step(); acc -= stepTime; }
+      requestAnimationFrame(loop);
+    }
+
+    function startPause(){ running = !running; if(running){ lastTime = 0; requestAnimationFrame(loop); } }
+    function restart(){ reset(); running = true; lastTime = 0; acc = 0; requestAnimationFrame(loop); }
+    function changeSpeed(){ var idx = (SPEEDS.indexOf(stepPerSec)+1) % SPEEDS.length; stepPerSec = SPEEDS[idx]; speedEl.textContent = String(idx+1)+'x'; }
+
+    function onKey(e){
+      var k = e.key.toLowerCase();
+      if(k === ' ' || k === 'spacebar'){ e.preventDefault(); startPause(); return; }
+      if(k === 'r'){ e.preventDefault(); restart(); return; }
+      var map = { arrowleft:DIRS.left, a:DIRS.left, arrowright:DIRS.right, d:DIRS.right, arrowup:DIRS.up, w:DIRS.up, arrowdown:DIRS.down, s:DIRS.down };
+      if(map[k]){
+        var nd = map[k];
+        if(snake.length > 1 && (nd[0] === -dir[0] && nd[1] === -dir[1])) return;
+        nextDir = nd;
+      }
+    }
+
+    function bindSwipe(el){
+      var sx=0, sy=0, dx=0, dy=0, active=false;
+      el.addEventListener('touchstart', function(e){ var t=e.touches[0]; sx=t.clientX; sy=t.clientY; active=true; }, {passive:true});
+      el.addEventListener('touchmove', function(e){ if(!active) return; var t=e.touches[0]; dx=t.clientX-sx; dy=t.clientY-sy; }, {passive:true});
+      el.addEventListener('touchend', function(){ if(!active) return; active=false; if(Math.abs(dx)+Math.abs(dy)<20) return; var horiz=Math.abs(dx)>Math.abs(dy); var nd=horiz?(dx>0?DIRS.right:DIRS.left):(dy>0?DIRS.down:DIRS.up); if(snake.length>1 && (nd[0]===-dir[0] && nd[1]===-dir[1])) return; nextDir=nd; dx=dy=0; if(!running) startPause(); });
+    }
+
+    // Event bindings
+    window.addEventListener('resize', function(){ initCanvas(); drawAll(); });
+    document.addEventListener('keydown', onKey);
+    document.getElementById('btn-start').addEventListener('click', startPause);
+    document.getElementById('btn-restart').addEventListener('click', restart);
+    document.getElementById('btn-speed').addEventListener('click', changeSpeed);
+    bindSwipe(board);
+    // 点击棋盘开始/暂停
+    board.addEventListener('click', function(){ startPause(); });
+    // 触控方向键
+    document.querySelector('.dpad .up').addEventListener('click', function(){ if(dir!==DIRS.down) nextDir=DIRS.up; if(!running) startPause(); });
+    document.querySelector('.dpad .down').addEventListener('click', function(){ if(dir!==DIRS.up) nextDir=DIRS.down; if(!running) startPause(); });
+    document.querySelector('.dpad .left').addEventListener('click', function(){ if(dir!==DIRS.right) nextDir=DIRS.left; if(!running) startPause(); });
+    document.querySelector('.dpad .right').addEventListener('click', function(){ if(dir!==DIRS.left) nextDir=DIRS.right; if(!running) startPause(); });
+
+    // Init
+    hiscoreEl.textContent = String(hiscore);
+    initCanvas();
+    reset();
+    setTimeout(function(){ board.focus(); }, 200);
+  })();
+  </script>
+</body>
+</html>
